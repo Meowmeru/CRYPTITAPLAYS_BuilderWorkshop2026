@@ -119,7 +119,7 @@ export default function App() {
         }}
       >
         <CardPhotoExport portfolio={portfolio}>
-          {({ onCameraClick, isGenerating, canExport }) => (
+          {({ onCameraClick, isGenerating, canExport, exportProgress, onCancelExport }) => (
             <div
               className="card-stage__scale-box"
               style={{
@@ -141,6 +141,8 @@ export default function App() {
                   onCameraClick={onCameraClick}
                   isGenerating={isGenerating}
                   canExport={canExport}
+                  exportProgress={exportProgress}
+                  onCancelExport={onCancelExport}
                   isOrbiting={isOrbiting}
                   onOrbitClick={() => setIsOrbiting((current) => !current)}
                 />

@@ -1,90 +1,152 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import CardGifWorker from '../lib/cardGif.worker.ts?worker';
+import { EXPORT_WIDTH, EXPORT_HEIGHT } from '../lib/cardPhotoExport';
+import { drawGifFrame, exportStage, GIF_FRAMES, releaseCanvas } from '../lib/cardGifExport';
 
-const EXPORT_ERROR_BODY = "We couldn't export your animated Builder Card. Please try again.";
+type EncoderReply = { type: 'ready' } | { type: 'progress'; completed: number; total: number }
+  | { type: 'complete'; blob: Blob } | { type: 'error'; error: string };
 
-async function captureFaces(node: HTMLElement): Promise<ImageBitmap[]> {
-  const { toCanvas } = await import('html-to-image');
-  await document.fonts.ready;
-  await Promise.all(Array.from(node.querySelectorAll('img')).map(image => image.decode()));
-  const faces = Array.from(node.querySelectorAll<HTMLElement>('.builder-card-export__card-wrap'));
-  if (faces.length !== 2) throw new Error('Export requires both card faces.');
-  const bitmaps: ImageBitmap[] = [];
-  const originalStyle = node.style.cssText;
-  node.style.visibility = 'visible';
-  node.style.left = '-10000px';
-  try {
-    for (const face of faces) {
-      const canvas = await toCanvas(face, {
-        width: 780, height: 500, pixelRatio: 1.5,
-        style: { visibility: 'visible', transform: 'none', boxShadow: 'none' },
-      });
-      bitmaps.push(await createImageBitmap(canvas));
-    }
-    const response = await fetch('/assets/workshop-export.png');
-    if (!response.ok) throw new Error('Workshop background could not be loaded.');
-    bitmaps.push(await createImageBitmap(await response.blob()));
-    return bitmaps;
-  } catch (error) {
-    bitmaps.forEach(bitmap => bitmap.close());
-    throw error;
-  } finally {
-    node.style.cssText = originalStyle;
-  }
+function requestEncoder(worker: Worker, message: object, signal: AbortSignal, transfer: Transferable[] = []) {
+  const response = new Promise<EncoderReply>((resolve, reject) => {
+    worker.onmessage = ({ data }: MessageEvent<EncoderReply>) => {
+      if (data.type === 'error') reject(new Error(`GIF encoding failed: ${data.error}`));
+      else resolve(data);
+    };
+    worker.onerror = () => reject(new Error('The GIF encoder stopped. Close unused tabs and try again.'));
+    worker.onmessageerror = () => reject(new Error('Your browser could not read the GIF encoder response. Try another browser.'));
+    worker.postMessage(message, transfer);
+  });
+  return exportStage(response, signal, 'GIF encoding stopped responding. Keep this tab open and try again.');
 }
 
 export function useCardPhotoExport(builderName: string, canExport: boolean) {
   const captureRef = useRef<HTMLDivElement>(null);
-  const busyRef = useRef(false);
+  const activeRef = useRef<AbortController | null>(null);
+  const mountedRef = useRef(true);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [exportProgress, setExportProgress] = useState('');
   const [exportError, setExportError] = useState<string | null>(null);
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => { mountedRef.current = false; activeRef.current?.abort(); };
+  }, []);
+  useEffect(() => { if (!canExport) activeRef.current?.abort(); }, [canExport]);
+  const cancelExport = useCallback(() => activeRef.current?.abort(), []);
 
   const exportPhoto = useCallback(async () => {
     const node = captureRef.current;
-    if (!node || !canExport || busyRef.current) return;
-    busyRef.current = true;
+    if (!node || !canExport || activeRef.current) return;
+    const controller = new AbortController();
+    activeRef.current = controller;
+    const { signal } = controller;
     setIsGenerating(true);
     setExportError(null);
+    setExportProgress('Preparing images…');
     let worker: Worker | undefined;
-    let images: ImageBitmap[] = [];
+    const canvases: HTMLCanvasElement[] = [];
+    let backgroundUrl: string | undefined;
+    let background: HTMLImageElement | undefined;
+    const originalStyle = node.style.cssText;
+    let stage = 'Preparing images';
     try {
-      images = await captureFaces(node);
+      if (typeof Worker === 'undefined') throw new Error('This browser cannot export GIFs. Use a current browser with Web Workers enabled.');
+      const canvas = document.createElement('canvas');
+      canvases.push(canvas);
+      canvas.width = EXPORT_WIDTH;
+      canvas.height = EXPORT_HEIGHT;
+      const ctx = canvas.getContext('2d', { willReadFrequently: true });
+      if (!ctx) throw new Error('Your browser could not create the export canvas. Close unused tabs or try another browser.');
+      const { toCanvas } = await exportStage(import('html-to-image'), signal, 'The image capture module could not load. Refresh and try again.');
+      await exportStage(document.fonts.ready, signal, 'Fonts took too long to load. Check your connection and try again.');
+      await exportStage(Promise.all(Array.from(node.querySelectorAll('img')).map(image => image.decode().catch(() => { throw new Error('A card image could not load. Refresh the page and check your connection.'); }))), signal,
+        'Card images took too long to load. Check your connection and try again.');
+      const faces = Array.from(node.querySelectorAll<HTMLElement>('.builder-card-export__card-wrap'));
+      if (faces.length !== 2) throw new Error('Both card faces must be loaded before exporting.');
+      node.style.visibility = 'visible';
+      node.style.left = '-10000px';
+      const captured: HTMLCanvasElement[] = [];
+      for (const [index, face] of faces.entries()) {
+        stage = `Capturing card ${index + 1}/2`;
+        setExportProgress(`${stage}…`);
+        const capturedFace = await exportStage(toCanvas(face, {
+          width: 780, height: 500, pixelRatio: 1.5,
+          fetchRequestInit: { signal },
+          style: { visibility: 'visible', transform: 'none', boxShadow: 'none' },
+        }), signal, 'Card capture took too long. Close unused tabs and try again.', 120000, releaseCanvas);
+        canvases.push(capturedFace);
+        captured.push(capturedFace);
+      }
+      node.style.cssText = originalStyle;
+      stage = 'Loading workshop background';
+      setExportProgress(`${stage}…`);
+      const response = await exportStage(fetch('/assets/workshop-export.png', { signal }), signal,
+        'The workshop background took too long to load. Check your connection and try again.');
+      if (!response.ok) throw new Error('The workshop background could not load. Refresh and try again.');
+      const imageBlob = await exportStage(response.blob(), signal, 'The workshop background download stalled. Check your connection and try again.');
+      backgroundUrl = URL.createObjectURL(imageBlob);
+      background = new Image();
+      background.src = backgroundUrl;
+      await exportStage(background.decode().catch(() => { throw new Error('The workshop background could not be decoded. Try another browser.'); }), signal, 'The workshop background could not be decoded. Try another browser.');
+      const samples = document.createElement('canvas');
+      canvases.push(samples);
+      samples.width = 256;
+      samples.height = 768;
+      const sampleCtx = samples.getContext('2d', { willReadFrequently: true });
+      if (!sampleCtx) throw new Error('Your browser ran out of canvas resources. Close unused tabs and try again.');
+      sampleCtx.fillStyle = '#b245ef';
+      sampleCtx.fillRect(0, 0, 256, 768);
+      [background, ...captured].forEach((source, index) => sampleCtx.drawImage(source, 0, index * 256, 256, 256));
+      const samplePixels = sampleCtx.getImageData(0, 0, 256, 768).data.buffer;
+      stage = 'Preparing GIF colors';
+      setExportProgress(`${stage}…`);
       worker = new CardGifWorker();
-      const encoder = worker;
-      const blob = await new Promise<Blob>((resolve, reject) => {
-        const timeout = window.setTimeout(() => reject(new Error('GIF export timed out.')), 120000);
-        encoder.onmessage = ({ data }: MessageEvent<Blob | { error: string }>) => {
-          window.clearTimeout(timeout);
-          if (data instanceof Blob) resolve(data);
-          else reject(new Error(data.error));
-        };
-        encoder.onerror = () => {
-          window.clearTimeout(timeout);
-          reject(new Error('GIF encoder failed.'));
-        };
-        encoder.postMessage(images, images);
-        images = [];
-      });
+      const ready = await requestEncoder(worker, { type: 'init', samples: samplePixels }, signal, [samplePixels]);
+      if (ready.type !== 'ready') throw new Error('Unexpected GIF encoder initialization response.');
+      releaseCanvas(samples);
+      for (let index = 0; index < GIF_FRAMES; index++) {
+        signal.throwIfAborted();
+        stage = `Creating GIF ${index + 1}/${GIF_FRAMES}`;
+        setExportProgress(stage);
+        // Yield between frames so cancellation and progress remain responsive.
+        await exportStage(new Promise<void>(resolve => setTimeout(resolve, 0)), signal, 'GIF rendering stopped responding.');
+        drawGifFrame(ctx, captured[0], captured[1], background, index);
+        const pixels = ctx.getImageData(0, 0, EXPORT_WIDTH, EXPORT_HEIGHT).data.buffer;
+        const progress = await requestEncoder(worker, { type: 'frame', pixels, index }, signal, [pixels]);
+        if (progress.type !== 'progress' || progress.completed !== index + 1 || progress.total !== GIF_FRAMES)
+          throw new Error('Unexpected GIF encoder progress response.');
+      }
+      stage = 'Finishing GIF';
+      setExportProgress(`${stage}…`);
+      const result = await requestEncoder(worker, { type: 'finish' }, signal);
+      if (result.type !== 'complete' || !(result.blob instanceof Blob)) throw new Error('The GIF encoder returned an invalid file.');
+      signal.throwIfAborted();
       const slug = builderName.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'builder';
-      const url = URL.createObjectURL(blob);
+      const url = URL.createObjectURL(result.blob);
       const link = document.createElement('a');
       link.download = `cryptita-builder-${slug}.gif`;
       link.href = url;
       document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.setTimeout(() => URL.revokeObjectURL(url), 60000);
+      try { link.click(); } finally {
+        link.remove();
+        window.setTimeout(() => URL.revokeObjectURL(url), 60000);
+      }
     } catch (error) {
-      console.error('Could not generate BuilderCard GIF:', error);
-      setExportError(EXPORT_ERROR_BODY);
+      if (!signal.aborted && mountedRef.current) {
+        console.error('Could not generate BuilderCard GIF:', { stage, error });
+        setExportError(`${stage}: ${error instanceof Error ? error.message : 'Export failed. Close unused tabs and try again.'}`);
+      }
     } finally {
+      controller.abort();
       worker?.terminate();
-      images.forEach(image => image.close());
-      busyRef.current = false;
-      setIsGenerating(false);
+      node.style.cssText = originalStyle;
+      canvases.forEach(releaseCanvas);
+      if (background) background.src = '';
+      if (backgroundUrl) URL.revokeObjectURL(backgroundUrl);
+      activeRef.current = null;
+      if (mountedRef.current) { setIsGenerating(false); setExportProgress(''); }
     }
   }, [builderName, canExport]);
 
   const clearExportError = useCallback(() => setExportError(null), []);
-  return { captureRef, exportPhoto, isGenerating, exportError, clearExportError };
+  return { captureRef, exportPhoto, isGenerating, exportProgress, cancelExport, exportError, clearExportError };
 }

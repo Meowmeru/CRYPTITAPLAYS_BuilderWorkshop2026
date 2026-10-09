@@ -44,6 +44,8 @@ type SocialActionsProps = {
   onCameraClick?: () => void;
   isGenerating?: boolean;
   canExport?: boolean;
+  exportProgress?: string;
+  onCancelExport?: () => void;
   isOrbiting?: boolean;
   onOrbitClick?: () => void;
 };
@@ -52,12 +54,14 @@ export default function SocialActions({
   onCameraClick,
   isGenerating = false,
   canExport = false,
+  exportProgress = 'Creating GIF…',
+  onCancelExport,
   isOrbiting = false,
   onOrbitClick,
 }: SocialActionsProps) {
   const cameraDisabled = isGenerating || !onCameraClick || !canExport;
   const cameraLabel = isGenerating
-    ? 'Generating builder card GIF'
+    ? exportProgress
     : canExport
       ? 'Download builder card GIF'
       : 'Download builder card GIF (available after the card loads)';
@@ -73,12 +77,15 @@ export default function SocialActions({
           className={`social-actions__link social-actions__camera${isGenerating ? ' is-generating' : ''}`}
           aria-label={cameraLabel}
           aria-busy={isGenerating}
+          title={isGenerating ? exportProgress : undefined}
           disabled={cameraDisabled}
           onClick={onCameraClick}
         >
           <CameraIcon />
-          <span className="social-actions__label">{isGenerating ? 'Creating GIF…' : 'GIF'}</span>
+          <span className="social-actions__label">{isGenerating ? (exportProgress.startsWith('Creating GIF') ? exportProgress.replace('Creating GIF ', 'GIF ') : 'Preparing GIF…') : 'GIF'}</span>
         </button>
+        {isGenerating ? <span role="status" className="social-actions__export-progress">{exportProgress}</span> : null}
+        {isGenerating ? <button type="button" className="social-actions__link" onClick={onCancelExport}>Cancel</button> : null}
         <button
           type="button"
           className={`social-actions__link social-actions__spin${isOrbiting ? ' is-active' : ''}`}

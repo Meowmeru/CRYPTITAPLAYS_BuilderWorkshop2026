@@ -388,3 +388,10 @@ button {
     white-space: nowrap;
   }
 }
+
+.social-actions__export-progress {
+  font-size: 12px;
+  line-height: 1.4;
+  max-width: 188px;
+  align-self: center;
+}
