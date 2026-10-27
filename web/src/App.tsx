@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState, type RefObject } from 'react';
+import { useEffect, useRef, useState, type PointerEvent, type RefObject } from 'react';
 import CardPhotoExport from './components/CardPhotoExport';
 import Footer from './components/Footer';
 import Header from './components/Header';
-import MoltenMetal from './components/MoltenMetal';
 import ProfileCard from './components/ProfileCard';
 import SocialActions from './components/SocialActions';
 import { usePortfolio } from './hooks/usePortfolio';
@@ -90,6 +89,18 @@ export default function App() {
   const { scale, stackWidth, stackHeight, stageInsets } = useCardLayout(stageRef, stackRef, headerRef, footerRef);
   const [isOrbiting, setIsOrbiting] = useState(false);
 
+  const moveBackground = (event: PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType !== 'mouse') return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    event.currentTarget.style.setProperty('--bg-offset-x', `${16 * (1 - 2 * (event.clientX - rect.left) / rect.width)}px`);
+    event.currentTarget.style.setProperty('--bg-offset-y', `${16 * (1 - 2 * (event.clientY - rect.top) / rect.height)}px`);
+  };
+
+  const resetBackground = (event: PointerEvent<HTMLDivElement>) => {
+    event.currentTarget.style.setProperty('--bg-offset-x', '0px');
+    event.currentTarget.style.setProperty('--bg-offset-y', '0px');
+  };
+
   useEffect(() => {
     if (portfolio.status === 'success' && portfolio.data?.fields.builder_name) {
       document.title = `${portfolio.data.fields.builder_name} · Cryptita Plays`;
@@ -99,14 +110,8 @@ export default function App() {
   }, [portfolio.data?.fields.builder_name, portfolio.status]);
 
   return (
-    <div className="app-root">
-      <MoltenMetal
-        className="app-bg"
-        color1="#630010"
-        color2="#9B1228"
-        color3="#D9A300"
-        opacity={0.48}
-      />
+    <div className="app-root" onPointerMove={moveBackground} onPointerLeave={resetBackground}>
+      <div className="app-bg" aria-hidden="true" />
       <Header ref={headerRef} />
       <main
         className="card-stage"

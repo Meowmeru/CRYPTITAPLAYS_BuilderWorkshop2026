@@ -1,6 +1,6 @@
 # Frontend
 
-- Work in `web/`: React 19, TypeScript, Vite, Oxlint, plain CSS, `@mysten/sui`, `ogl`, and `html-to-image`. Use the existing npm manifests and lockfiles.
+- Work in `web/`: React 19, TypeScript, Vite, Oxlint, plain CSS, `@mysten/sui`, and `html-to-image`. Use the existing npm manifests and lockfiles.
 - Follow adjacent formatting and `web/.oxlintrc.json`; ESLint, Black, and a formatter command are not configured here.
 - Preserve the single-route, single-viewport layout, local React state, and existing card scaling. Do not add a router, global state library, UI kit, wallet integration, or backend without a task requiring it.
 - Keep network configuration in `src/config.ts` and the GraphQL client in `src/lib/suiClient.ts`. Follow the installed SDK usage in `usePortfolio`; older specs show obsolete RPC response shapes.

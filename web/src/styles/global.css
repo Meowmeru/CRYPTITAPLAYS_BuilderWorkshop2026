@@ -76,6 +76,22 @@ button {
   overflow: hidden;
 }
 
+.app-bg {
+  position: absolute;
+  inset: -16px;
+  background: #1c080d url('../assets/marinduque-state-university-campus.jpg') center / cover no-repeat;
+  pointer-events: none;
+  transform: translate3d(var(--bg-offset-x, 0px), var(--bg-offset-y, 0px), 0);
+  transition: transform 180ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-bg {
+    transform: none;
+    transition: none;
+  }
+}
+
 .site-header {
   position: absolute;
   top: 0;

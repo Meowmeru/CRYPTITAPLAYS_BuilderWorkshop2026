@@ -238,7 +238,6 @@ The frontend is a single-route, single-viewport React application using:
 - TypeScript 6;
 - Vite 8;
 - `@mysten/sui` GraphQL client;
-- `ogl` for the animated molten-metal background;
 - `html-to-image` for client-side PNG export;
 - `simple-icons` for brand icons;
 - Oxlint for linting;
@@ -309,7 +308,7 @@ The main frontend contracts live in `web/src/types.ts`:
 
 `App.tsx` composes:
 
-- `MoltenMetal` — animated WebGL background with reduced-motion/WebGL fallback;
+- pointer-responsive campus image background with reduced-motion support;
 - `Header` — Cryptita Plays link and workshop GitHub link;
 - `ProfileCard` — interactive card front/back and on-chain metadata;
 - `SocialActions` — Camera export, Spin toggle, and Cryptita Plays social links;
