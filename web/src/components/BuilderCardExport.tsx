@@ -36,12 +36,6 @@ const BuilderCardExport = forwardRef<HTMLDivElement, BuilderCardExportProps>(
         data-export-root
       >
         <div className="builder-card-export__studio">
-          <div className="builder-card-export__surface" aria-hidden="true">
-            <div className="builder-card-export__surface-wash" />
-            <div className="builder-card-export__surface-vein" />
-          </div>
-
-
           <div className="builder-card-export__cards">
             <div className="builder-card-export__card-wrap builder-card-export__card-wrap--front">
               <div className="builder-card-export__card-shell">
@@ -60,7 +54,6 @@ const BuilderCardExport = forwardRef<HTMLDivElement, BuilderCardExportProps>(
               </div>
             </div>
           </div>
-
         </div>
       </div>
     );

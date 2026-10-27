@@ -1,4 +1,4 @@
-/** Match the workshop artwork at its original square size. */
+/** Keep the GIF square; draw the workshop artwork across this canvas. */
 export const EXPORT_WIDTH = 1600;
 export const EXPORT_HEIGHT = 1600;
 export const EXPORT_ASPECT_RATIO = 1;
@@ -13,8 +13,8 @@ export const PHOTO_HEIGHT = 1350;
  */
 export const EXPORT_CARD_WIDTH = 780 * (1600 / 1080);
 
-/** Marble base fill for canvas letterbox / html-to-image fallback. */
-export const EXPORT_BACKGROUND = '#0f1a2b';
+/** Match the Camera artwork if html-to-image needs a fallback fill. */
+export const EXPORT_BACKGROUND = '#fcedf0';
 
 /** Capture-failure PNG stays dark so the error copy remains readable. */
 export const EXPORT_ERROR_BACKGROUND = '#131318';

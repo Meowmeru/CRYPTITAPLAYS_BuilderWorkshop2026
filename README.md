@@ -149,7 +149,7 @@ npm run preview
 ## What you build
 
 1. **Move package** (`move/`) — `builder_card` module with an owned `BuilderCard`, Display metadata, and `create_builder_card` (builder number claimed automatically from the shared registry).
-2. **Static website** (`web/`) — single-viewport homepage that reads one on-chain object, shows your profile photo from `web/public/assets/profile.png`, and exports the card client-side. The GIF button creates a looping 1600 × 1600 animation using the shared card faces and `web/public/assets/workshop-export.png`. The square artwork fills the output at its original size without cropping or padding. GIF encoding uses `gifenc` in a browser worker. The Camera button below it downloads a 1080 × 1350 PNG showing both card faces. Neither export uploads data to an external service.
+2. **Static website** (`web/`) — single-viewport homepage that reads one on-chain object, shows your profile photo from `web/public/assets/profile.png`, and exports the card client-side. The GIF button creates a looping 1600 × 1600 animation using the shared card faces and `web/public/assets/workshop-export.png`. The square artwork scales to fill the output without cropping or padding. GIF encoding uses `gifenc` in a browser worker. The Camera button below it downloads a 1080 × 1350 PNG showing both card faces. Neither export uploads data to an external service.
 
 
 
