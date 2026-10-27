@@ -6,7 +6,6 @@ import MoltenMetal from './components/MoltenMetal';
 import ProfileCard from './components/ProfileCard';
 import SocialActions from './components/SocialActions';
 import { usePortfolio } from './hooks/usePortfolio';
-import campusPhoto from './assets/marinduque-state-university-campus.jpg';
 
 const CARD_WIDTH = 1020;
 const CARD_ASPECT = 1.56;
@@ -103,10 +102,10 @@ export default function App() {
     <div className="app-root">
       <MoltenMetal
         className="app-bg"
-        image={campusPhoto}
-        primaryColor="#800016"
-        accentColor="#D9A300"
-        lightColor="#FFF8E2"
+        color1="#630010"
+        color2="#9B1228"
+        color3="#D9A300"
+        opacity={0.48}
       />
       <Header ref={headerRef} />
       <main
