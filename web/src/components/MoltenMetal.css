@@ -22,9 +22,8 @@
 }
 
 .app-bg .inst-bg__photo {
-  background-size: min(60vw, 620px) auto;
-  background-repeat: no-repeat;
-  opacity: 0.2;
+  background-size: cover;
+  background-position: center;
 }
 
 .inst-bg--drift .inst-bg__photo {
@@ -115,16 +114,16 @@
    ========================================================= */
 
 .inst-bg--light .inst-bg__photo {
-  filter: blur(3px) saturate(0.9) brightness(1.05);
+  filter: blur(1.5px) saturate(0.9);
 }
 
 .inst-bg--light .inst-bg__tint {
   mix-blend-mode: normal;
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.8) 0%,
-    rgba(255, 255, 255, 0.58) 50%,
-    color-mix(in srgb, var(--inst-accent) 24%, rgba(255, 255, 255, 0.5)) 100%
+    rgba(255, 255, 255, 0.48) 0%,
+    rgba(255, 255, 255, 0.38) 50%,
+    color-mix(in srgb, var(--inst-accent) 24%, rgba(255, 255, 255, 0.35)) 100%
   );
 }
 
