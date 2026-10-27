@@ -14,13 +14,13 @@ See [university editions](docs/workshops/editions.md) for preserved earlier work
       <img src="web/public/assets/partners/blockchain4her.png" alt="Blockchain4Her" height="32">
     </td>
     <td align="center" valign="middle">
-      <a href="https://www.facebook.com/kamiyonstudio">
-        <img src="web/public/assets/partners/kamiyon-studio.svg" alt="Kamiyon Studio" height="48">
+      <a href="https://www.facebook.com/grantix.global">
+        <img src="web/public/assets/partners/grantix.png" alt="Grantix" height="32">
       </a>
     </td>
     <td align="center" valign="middle">
-      <a href="https://www.facebook.com/grantix.global">
-        <img src="web/public/assets/partners/grantix.png" alt="Grantix" height="32">
+      <a href="https://www.facebook.com/kamiyonstudio">
+        <img src="web/public/assets/partners/kamiyon-studio.svg" alt="Kamiyon Studio" height="48">
       </a>
     </td>
     <td align="center" valign="middle">

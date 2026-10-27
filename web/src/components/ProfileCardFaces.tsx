@@ -309,16 +309,6 @@ export function CardBackFace({
               </div>
               <a
                 className="community-partner community-partner--wide"
-                href="https://www.facebook.com/kamiyonstudio"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Kamiyon Studio"
-                tabIndex={backFaceTabIndex}
-              >
-                <img src="/assets/partners/kamiyon-studio.svg" alt="Kamiyon Studio" />
-              </a>
-              <a
-                className="community-partner community-partner--wide"
                 href="https://www.facebook.com/grantix.global"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -326,6 +316,16 @@ export function CardBackFace({
                 tabIndex={backFaceTabIndex}
               >
                 <img src="/assets/partners/grantix.png" alt="Grantix" />
+              </a>
+              <a
+                className="community-partner community-partner--wide"
+                href="https://www.facebook.com/kamiyonstudio"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Kamiyon Studio"
+                tabIndex={backFaceTabIndex}
+              >
+                <img src="/assets/partners/kamiyon-studio.svg" alt="Kamiyon Studio" />
               </a>
               <div className="community-partner community-partner--wide">
                 <img src="/assets/partners/bingx-academy.png" alt="BingX Academy" />
