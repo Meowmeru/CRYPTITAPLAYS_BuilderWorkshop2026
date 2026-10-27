@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import CardGifWorker from '../lib/cardGif.worker.ts?worker';
-import { EXPORT_WIDTH, EXPORT_HEIGHT } from '../lib/cardPhotoExport';
+import { EXPORT_WIDTH, EXPORT_HEIGHT, EXPORT_BACKGROUND, PHOTO_WIDTH, PHOTO_HEIGHT } from '../lib/cardPhotoExport';
 import { drawGifFrame, exportStage, GIF_FRAMES, releaseCanvas } from '../lib/cardGifExport';
 
 type EncoderReply = { type: 'ready' } | { type: 'progress'; completed: number; total: number }
@@ -24,6 +24,7 @@ export function useCardPhotoExport(builderName: string, canExport: boolean) {
   const activeRef = useRef<AbortController | null>(null);
   const mountedRef = useRef(true);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isCapturingPhoto, setIsCapturingPhoto] = useState(false);
   const [exportProgress, setExportProgress] = useState('');
   const [exportError, setExportError] = useState<string | null>(null);
   useEffect(() => {
@@ -147,6 +148,54 @@ export function useCardPhotoExport(builderName: string, canExport: boolean) {
     }
   }, [builderName, canExport]);
 
+  const exportStill = useCallback(async () => {
+    const node = captureRef.current;
+    if (!node || !canExport || activeRef.current) return;
+    const controller = new AbortController();
+    activeRef.current = controller;
+    const { signal } = controller;
+    const originalStyle = node.style.cssText;
+    let stage = 'Preparing card photo';
+    setIsCapturingPhoto(true);
+    setExportError(null);
+    try {
+      const { toPng } = await exportStage(import('html-to-image'), signal,
+        'The image capture module could not load. Refresh and try again.');
+      await exportStage(document.fonts.ready, signal, 'Fonts took too long to load. Check your connection and try again.');
+      await exportStage(Promise.all(Array.from(node.querySelectorAll('img')).map(image =>
+        image.decode().catch(() => { throw new Error('A card image could not load. Refresh and try again.'); })
+      )), signal, 'Card images took too long to load. Check your connection and try again.');
+      node.style.visibility = 'visible';
+      node.style.left = '0';
+      node.style.zIndex = '2147483647';
+      stage = 'Capturing card photo';
+      const png = await exportStage(toPng(node, {
+        width: PHOTO_WIDTH,
+        height: PHOTO_HEIGHT,
+        pixelRatio: 1,
+        cacheBust: true,
+        backgroundColor: EXPORT_BACKGROUND,
+      }), signal, 'Card photo capture took too long. Close unused tabs and try again.');
+      signal.throwIfAborted();
+      const slug = builderName.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'builder';
+      const link = document.createElement('a');
+      link.download = `cryptita-builder-${slug}.png`;
+      link.href = png;
+      document.body.appendChild(link);
+      try { link.click(); } finally { link.remove(); }
+    } catch (error) {
+      if (!signal.aborted && mountedRef.current) {
+        console.error('Could not generate BuilderCard photo:', { stage, error });
+        setExportError(`${stage}: ${error instanceof Error ? error.message : 'Export failed. Close unused tabs and try again.'}`);
+      }
+    } finally {
+      controller.abort();
+      node.style.cssText = originalStyle;
+      activeRef.current = null;
+      if (mountedRef.current) setIsCapturingPhoto(false);
+    }
+  }, [builderName, canExport]);
+
   const clearExportError = useCallback(() => setExportError(null), []);
-  return { captureRef, exportPhoto, isGenerating, exportProgress, cancelExport, exportError, clearExportError };
+  return { captureRef, exportPhoto, exportStill, isGenerating, isCapturingPhoto, exportProgress, cancelExport, exportError, clearExportError };
 }

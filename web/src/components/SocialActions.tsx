@@ -20,6 +20,15 @@ function CameraIcon() {
   );
 }
 
+function GifIcon() {
+  return (
+    <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="2" y="4" width="20" height="16" rx="3" />
+      <path d="m10 8 6 4-6 4z" />
+    </svg>
+  );
+}
+
 function SpinIcon() {
   return (
     <svg
@@ -41,8 +50,10 @@ function SpinIcon() {
 }
 
 type SocialActionsProps = {
+  onGifClick?: () => void;
   onCameraClick?: () => void;
   isGenerating?: boolean;
+  isCapturingPhoto?: boolean;
   canExport?: boolean;
   exportProgress?: string;
   onCancelExport?: () => void;
@@ -51,20 +62,29 @@ type SocialActionsProps = {
 };
 
 export default function SocialActions({
+  onGifClick,
   onCameraClick,
   isGenerating = false,
+  isCapturingPhoto = false,
   canExport = false,
   exportProgress = 'Creating GIF…',
   onCancelExport,
   isOrbiting = false,
   onOrbitClick,
 }: SocialActionsProps) {
-  const cameraDisabled = isGenerating || !onCameraClick || !canExport;
-  const cameraLabel = isGenerating
+  const exportBusy = isGenerating || isCapturingPhoto;
+  const gifDisabled = exportBusy || !onGifClick || !canExport;
+  const cameraDisabled = exportBusy || !onCameraClick || !canExport;
+  const gifLabel = isGenerating
     ? exportProgress
     : canExport
       ? 'Download builder card GIF'
       : 'Download builder card GIF (available after the card loads)';
+  const cameraLabel = isCapturingPhoto
+    ? 'Generating builder card picture'
+    : canExport
+      ? 'Download builder card picture'
+      : 'Download builder card picture (available after the card loads)';
   const orbitLabel = isOrbiting
     ? 'Stop card rotation and return to the front'
     : 'Spin the card in a continuous loop';
@@ -72,20 +92,34 @@ export default function SocialActions({
   return (
     <div className="social-actions">
       <div className="social-actions__tools">
-        <button
-          type="button"
-          className={`social-actions__link social-actions__camera${isGenerating ? ' is-generating' : ''}`}
-          aria-label={cameraLabel}
-          aria-busy={isGenerating}
-          title={isGenerating ? exportProgress : undefined}
-          disabled={cameraDisabled}
-          onClick={onCameraClick}
-        >
-          <CameraIcon />
-          <span className="social-actions__label">{isGenerating ? (exportProgress.startsWith('Creating GIF') ? exportProgress.replace('Creating GIF ', 'GIF ') : 'Preparing GIF…') : 'GIF'}</span>
-        </button>
-        {isGenerating ? <span role="status" className="social-actions__export-progress">{exportProgress}</span> : null}
-        {isGenerating ? <button type="button" className="social-actions__link" onClick={onCancelExport}>Cancel</button> : null}
+        <div className="social-actions__downloads">
+          <button
+            type="button"
+            className={`social-actions__link social-actions__export${isGenerating ? ' is-generating' : ''}`}
+            aria-label={gifLabel}
+            aria-busy={isGenerating}
+            title={isGenerating ? exportProgress : undefined}
+            disabled={gifDisabled}
+            onClick={onGifClick}
+          >
+            <GifIcon />
+            <span className="social-actions__label">{isGenerating ? (exportProgress.startsWith('Creating GIF') ? exportProgress.replace('Creating GIF ', 'GIF ') : 'Preparing GIF…') : 'GIF'}</span>
+          </button>
+          <button
+            type="button"
+            className={`social-actions__link social-actions__export${isCapturingPhoto ? ' is-generating' : ''}`}
+            aria-label={cameraLabel}
+            aria-busy={isCapturingPhoto}
+            disabled={cameraDisabled}
+            onClick={onCameraClick}
+          >
+            <CameraIcon />
+            <span className="social-actions__label">Camera</span>
+          </button>
+          {isGenerating ? <span role="status" className="social-actions__export-progress">{exportProgress}</span> : null}
+          {isCapturingPhoto ? <span role="status" className="social-actions__export-progress">Saving picture…</span> : null}
+          {exportBusy ? <button type="button" className="social-actions__link" onClick={onCancelExport}>Cancel</button> : null}
+        </div>
         <button
           type="button"
           className={`social-actions__link social-actions__spin${isOrbiting ? ' is-active' : ''}`}

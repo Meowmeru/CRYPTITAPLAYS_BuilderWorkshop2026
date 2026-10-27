@@ -6,8 +6,10 @@ import BuilderCardExport from './BuilderCardExport';
 import '../styles/card-photo-export.css';
 
 type CardPhotoExportRenderProps = {
+  onGifClick: () => void;
   onCameraClick: () => void;
   isGenerating: boolean;
+  isCapturingPhoto: boolean;
   canExport: boolean;
   exportProgress: string;
   onCancelExport: () => void;
@@ -21,7 +23,7 @@ type CardPhotoExportProps = {
 export default function CardPhotoExport({ portfolio, children }: CardPhotoExportProps) {
   const builderName = portfolio.data?.fields.builder_name ?? 'builder';
   const canExport = portfolio.status === 'success';
-  const { captureRef, exportPhoto, isGenerating, exportProgress, cancelExport, exportError, clearExportError } =
+  const { captureRef, exportPhoto: exportGif, exportStill, isGenerating, isCapturingPhoto, exportProgress, cancelExport, exportError, clearExportError } =
     useCardPhotoExport(builderName, canExport);
 
   useEffect(() => {
@@ -38,10 +40,14 @@ export default function CardPhotoExport({ portfolio, children }: CardPhotoExport
     <>
       <BuilderCardExport ref={captureRef} portfolio={portfolio} />
       {children({
+        onGifClick: () => {
+          void exportGif();
+        },
         onCameraClick: () => {
-          void exportPhoto();
+          void exportStill();
         },
         isGenerating,
+        isCapturingPhoto,
         canExport,
         exportProgress,
         onCancelExport: cancelExport,
