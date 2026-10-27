@@ -18,6 +18,8 @@ export default function ProfileCard({ portfolio, isOrbiting = false }: ProfileCa
   const startAngleRef = useRef(0);
   const wasOrbitingRef = useRef(false);
   const isFlippedRef = useRef(isFlipped);
+  const frontFlipButtonRef = useRef<HTMLButtonElement>(null);
+  const backFlipButtonRef = useRef<HTMLButtonElement>(null);
   isFlippedRef.current = isFlipped;
 
   const { orbitRef, isAnimating } = useCardOrbit(isOrbiting, startAngleRef);
@@ -32,6 +34,13 @@ export default function ProfileCard({ portfolio, isOrbiting = false }: ProfileCa
     }
     wasOrbitingRef.current = isOrbiting;
   }, [isOrbiting]);
+
+  useLayoutEffect(() => {
+    const hiddenButton = isFlipped ? frontFlipButtonRef.current : backFlipButtonRef.current;
+    if (document.activeElement === hiddenButton) {
+      (isFlipped ? backFlipButtonRef.current : frontFlipButtonRef.current)?.focus();
+    }
+  }, [isFlipped]);
 
   const handleCardClick = (event: MouseEvent<HTMLDivElement>) => {
     if (motionLocked) return;
@@ -100,26 +109,31 @@ export default function ProfileCard({ portfolio, isOrbiting = false }: ProfileCa
             backFaceTabIndex={backFaceTabIndex}
             backFaceAriaHidden={!isFlipped}
           />
+          {[false, true].map((back) => (
+            <button
+              key={String(back)}
+              ref={back ? backFlipButtonRef : frontFlipButtonRef}
+              type="button"
+              className={`flip-btn${back ? ' flip-btn--back' : ''}`}
+              disabled={motionLocked}
+              onClick={(event) => {
+                event.stopPropagation();
+                if (motionLocked) return;
+                setIsFlipped((current) => !current);
+              }}
+              onKeyDown={handleFlipKeyDown}
+              tabIndex={isFlipped === back ? 0 : -1}
+              aria-hidden={isFlipped !== back}
+              aria-pressed={isFlipped}
+              aria-label={back ? 'Show front of card' : 'Show back of card'}
+            >
+              <span className="flip-icon" aria-hidden="true">
+                ↻
+              </span>
+              Flip
+            </button>
+          ))}
         </div>
-        {/* Keep the control outside the rotating faces so it stays readable and clickable. */}
-        <button
-          type="button"
-          className="flip-btn"
-          disabled={motionLocked}
-          onClick={(event) => {
-            event.stopPropagation();
-            if (motionLocked) return;
-            setIsFlipped((current) => !current);
-          }}
-          onKeyDown={handleFlipKeyDown}
-          aria-pressed={isFlipped}
-          aria-label={isFlipped ? 'Show front of card' : 'Show back of card'}
-        >
-          <span className="flip-icon" aria-hidden="true">
-            ↻
-          </span>
-          Flip
-        </button>
         <WorkshopBugs motionLocked={motionLocked} />
       </div>
     </div>

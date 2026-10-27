@@ -458,8 +458,10 @@
   position: absolute;
   right: 0;
   top: 48%;
-  transform: translateY(-50%) translateZ(100px);
+  transform: translateY(-50%) translateZ(20px);
   z-index: 10;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 
   display: flex;
   align-items: center;
@@ -488,8 +490,18 @@
 }
 
 .flip-btn:hover {
-  transform: translateY(-50%) translateX(-4px) translateZ(100px);
+  transform: translateY(-50%) translateX(-4px) translateZ(20px);
   filter: brightness(1.08);
+}
+
+.flip-btn--back {
+  left: 0;
+  right: auto;
+  transform: translateY(-50%) rotateY(180deg) translateZ(20px);
+}
+
+.flip-btn--back:hover {
+  transform: translateY(-50%) rotateY(180deg) translateX(-4px) translateZ(20px);
 }
 
 .flip-icon {
