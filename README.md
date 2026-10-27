@@ -117,7 +117,7 @@ sui client publish --gas-budget 100000000
 
 # Frontend
 cd web
-npm install
+npm i
 npm run dev
 npm run lint
 npm run test
@@ -245,13 +245,13 @@ VS Code should open the project:
 **Figure 1.1** — Workshop repo opened in VS Code after cloning your fork.
 
 1. In VS Code, open a new terminal with **Ctrl+Shift+backtick** (Terminal → New Terminal; backtick is the same key as `~`).
-2. In the project terminal, install the frontend and copy the env file. Use the command for your terminal: Git Bash uses `cp`; PowerShell uses `Copy-Item`.
+2. In the project terminal, switch to `web/` and run `npm i` first, before any other frontend command. Then copy the env file. Use the command for your terminal: Git Bash uses `cp`; PowerShell uses `Copy-Item`.
 
 **Git Bash / macOS / Linux:**
 
 ```bash
 cd web
-npm install
+npm i
 cp .env.example .env
 ```
 
@@ -259,13 +259,13 @@ cp .env.example .env
 
 ```powershell
 cd web
-npm install
+npm i
 Copy-Item .env.example .env
 ```
 
 ![npm install and copied .env in VS Code](docs/readme/06-npm-install-env.png)
 
-**Figure 1.2** — `npm install` finished and `web/.env` copied from `.env.example`.
+**Figure 1.2** — `npm i` finished and `web/.env` copied from `.env.example`.
 
 The template starts with an empty `VITE_PORTFOLIO_OBJECT_ID=`. Leave it empty in your local `web/.env` until you create a BuilderCard. `web/.env.example` already sets `VITE_SUI_NETWORK=mainnet`.
 
