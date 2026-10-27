@@ -8,13 +8,15 @@ See [university editions](docs/workshops/editions.md) for preserved earlier work
 
 
 <!-- Marinduque State University community partners -->
-<table align="center">
+<table align="center" cellspacing="12">
   <tr>
     <td align="center" valign="middle">
-      <img src="web/public/assets/partners/cjc-race.png" alt="CJC Race" height="56">
+      <img src="web/public/assets/partners/blockchain4her.png" alt="Blockchain4Her" height="32">
     </td>
     <td align="center" valign="middle">
-      <img src="web/public/assets/partners/blockchain4youth.png" alt="Blockchain4Youth" height="44">
+      <a href="https://www.facebook.com/kamiyonstudio">
+        <img src="web/public/assets/partners/kamiyon-studio.svg" alt="Kamiyon Studio" height="48">
+      </a>
     </td>
     <td align="center" valign="middle">
       <a href="https://www.facebook.com/grantix.global">
@@ -22,34 +24,30 @@ See [university editions](docs/workshops/editions.md) for preserved earlier work
       </a>
     </td>
     <td align="center" valign="middle">
-      <a href="https://www.facebook.com/kamiyonstudio">
-        <img src="web/public/assets/partners/kamiyon-studio.svg" alt="Kamiyon Studio" height="48">
-      </a>
+      <img src="web/public/assets/partners/bingx-academy.png" alt="BingX Academy" height="38">
+    </td>
+    <td align="center" valign="middle">
+      <img src="web/public/assets/partners/blockchain4youth.png" alt="Blockchain4Youth" height="44">
     </td>
   </tr>
   <tr>
     <td align="center" valign="middle">
-      <img src="web/public/assets/partners/blockchain4her.png" alt="Blockchain4Her" height="32">
-    </td>
-    <td align="center" valign="middle">
-      <img src="web/public/assets/partners/bingx-academy.png" alt="BingX Academy" height="38">
-    </td>
-    <td align="center" valign="middle">
-      <img src="web/public/assets/partners/conexus.png" alt="Conexus" height="42">
+      <img src="web/public/assets/partners/cjc-race.png" alt="CJC Race" height="56">
     </td>
     <td align="center" valign="middle">
       <img src="web/public/assets/partners/gnclub.png" alt="GNClub" height="42">
     </td>
-  </tr>
-  <tr>
     <td align="center" valign="middle">
       <img src="web/public/assets/partners/iskolar.png" alt="Iskolar" height="48">
+    </td>
+    <td align="center" valign="middle">
+      <img src="web/public/assets/partners/safehouse.png" alt="Safehouse" height="42">
     </td>
     <td align="center" valign="middle">
       <img src="web/public/assets/partners/nen-digital.png" alt="NEN Digital" height="42">
     </td>
     <td align="center" valign="middle">
-      <img src="web/public/assets/partners/safehouse.png" alt="Safehouse" height="42">
+      <img src="web/public/assets/partners/conexus.png" alt="Conexus" height="42">
     </td>
   </tr>
 </table>

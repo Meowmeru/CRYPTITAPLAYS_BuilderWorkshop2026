@@ -303,52 +303,56 @@ export function CardBackFace({
         <div className="back-community">
           <div className="community-title">Community Partners:</div>
           <div className="community-logos community-logos--msu">
-            <div className="community-partner">
-              <img src="/assets/partners/cjc-race.png" alt="CJC Race" />
+            <div className="community-logos-row community-logos-row--first">
+              <div className="community-partner community-partner--wide">
+                <img src="/assets/partners/blockchain4her.png" alt="Blockchain4Her" />
+              </div>
+              <a
+                className="community-partner community-partner--wide"
+                href="https://www.facebook.com/kamiyonstudio"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Kamiyon Studio"
+                tabIndex={backFaceTabIndex}
+              >
+                <img src="/assets/partners/kamiyon-studio.svg" alt="Kamiyon Studio" />
+              </a>
+              <a
+                className="community-partner community-partner--wide"
+                href="https://www.facebook.com/grantix.global"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Grantix"
+                tabIndex={backFaceTabIndex}
+              >
+                <img src="/assets/partners/grantix.png" alt="Grantix" />
+              </a>
+              <div className="community-partner community-partner--wide">
+                <img src="/assets/partners/bingx-academy.png" alt="BingX Academy" />
+              </div>
+              <div className="community-partner community-partner--wide community-partner--youth">
+                <img src="/assets/partners/blockchain4youth.png" alt="Blockchain4Youth" />
+              </div>
             </div>
-            <div className="community-partner">
-              <img src="/assets/partners/blockchain4youth.png" alt="Blockchain4Youth" />
-            </div>
-            <a
-              className="community-partner"
-              href="https://www.facebook.com/grantix.global"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Grantix"
-              tabIndex={backFaceTabIndex}
-            >
-              <img src="/assets/partners/grantix.png" alt="Grantix" />
-            </a>
-            <a
-              className="community-partner"
-              href="https://www.facebook.com/kamiyonstudio"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Kamiyon Studio"
-              tabIndex={backFaceTabIndex}
-            >
-              <img src="/assets/partners/kamiyon-studio.svg" alt="Kamiyon Studio" />
-            </a>
-            <div className="community-partner">
-              <img src="/assets/partners/blockchain4her.png" alt="Blockchain4Her" />
-            </div>
-            <div className="community-partner">
-              <img src="/assets/partners/bingx-academy.png" alt="BingX Academy" />
-            </div>
-            <div className="community-partner">
-              <img src="/assets/partners/conexus.png" alt="Conexus" />
-            </div>
-            <div className="community-partner">
-              <img src="/assets/partners/gnclub.png" alt="GNClub" />
-            </div>
-            <div className="community-partner">
-              <img src="/assets/partners/iskolar.png" alt="Iskolar" />
-            </div>
-            <div className="community-partner">
-              <img src="/assets/partners/nen-digital.png" alt="NEN Digital" />
-            </div>
-            <div className="community-partner">
-              <img src="/assets/partners/safehouse.png" alt="Safehouse" />
+            <div className="community-logos-row community-logos-row--second">
+              <div className="community-partner community-partner--compact">
+                <img src="/assets/partners/cjc-race.png" alt="CJC Race" />
+              </div>
+              <div className="community-partner community-partner--compact">
+                <img src="/assets/partners/gnclub.png" alt="GNClub" />
+              </div>
+              <div className="community-partner community-partner--compact community-partner--padded">
+                <img src="/assets/partners/iskolar.png" alt="Iskolar" />
+              </div>
+              <div className="community-partner community-partner--compact">
+                <img src="/assets/partners/safehouse.png" alt="Safehouse" />
+              </div>
+              <div className="community-partner community-partner--compact community-partner--padded">
+                <img src="/assets/partners/nen-digital.png" alt="NEN Digital" />
+              </div>
+              <div className="community-partner community-partner--compact community-partner--conexus">
+                <img src="/assets/partners/conexus.png" alt="Conexus" />
+              </div>
             </div>
           </div>
         </div>

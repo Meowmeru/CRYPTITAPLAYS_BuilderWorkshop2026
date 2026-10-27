@@ -1,57 +1,61 @@
-/* The same partner grid is used by the live card and photo export. */
+/* Shared by the live card and photo export. */
 .community-logos.community-logos--msu {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.community-logos--msu .community-logos-row {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  width: 100%;
   align-items: center;
-  gap: 6px 10px;
+  justify-items: center;
+  column-gap: 14px;
+}
+
+.community-logos-row--first {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.community-logos-row--second {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.community-logos--msu .community-partner--wide {
   width: 100%;
+  height: 32px;
 }
 
-.community-logos--msu .community-partner {
-  grid-column: span 3;
-  min-height: 52px;
-}
-
-.community-logos--msu .community-partner:nth-child(1),
-.community-logos--msu .community-partner:nth-child(7),
-.community-logos--msu .community-partner:nth-child(8),
-.community-logos--msu .community-partner:nth-child(9) {
-  grid-column: span 2;
-}
-
-.community-logos--msu .community-partner:nth-child(2) {
-  grid-column: span 4;
-}
-
-.community-logos--msu .community-partner img {
-  display: block;
+.community-logos--msu .community-partner--wide img {
   width: 100%;
-  height: 52px;
-  max-width: 240px;
+  height: 32px;
   object-fit: contain;
 }
 
-.community-logos--msu .community-partner:nth-child(2) img {
-  height: 42px;
-  max-width: 300px;
-  /* The source PNG has wide transparent bands above and below its wordmark. */
+.community-logos--msu .community-partner--youth img {
+  /* The wordmark occupies a narrow strip within its source PNG. */
   object-fit: cover;
+  transform: scale(1.15);
 }
 
-.community-logos--msu .community-partner:nth-child(3) img,
-.community-logos--msu .community-partner:nth-child(5) img {
-  max-width: 180px;
+.community-logos--msu .community-partner--compact {
+  width: 100%;
+  height: 45px;
+  overflow: hidden;
 }
 
-.community-logos--msu .community-partner:nth-child(6) img {
-  max-width: 165px;
+.community-logos--msu .community-partner--compact img {
+  width: 100%;
+  height: 45px;
+  max-width: 77px;
+  object-fit: contain;
 }
 
-.community-logos--msu .community-partner:nth-child(7) img,
-.community-logos--msu .community-partner:nth-child(8) img,
-.community-logos--msu .community-partner:nth-child(9) img,
-.community-logos--msu .community-partner:nth-child(10) img,
-.community-logos--msu .community-partner:nth-child(11) img {
-  height: 60px;
-  max-width: 100px;
+.community-logos--msu .community-partner--padded img {
+  transform: scale(1.25);
+}
+
+.community-logos--msu .community-partner--conexus img {
+  transform: scale(1.2);
 }
