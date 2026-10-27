@@ -1,16 +1,20 @@
-/* The same three-column partner grid is used by the live card and photo export. */
-.community-logos.community-logos--mmcl {
+/* The same partner grid is used by the live card and photo export. */
+.community-logos.community-logos--msu {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: center;
-  gap: 12px 18px;
+  gap: 6px 12px;
   width: 100%;
 }
 
-.community-logos--mmcl .community-partner img {
+.community-logos--msu .community-partner img {
   display: block;
   width: 100%;
-  height: 42px;
-  max-width: 140px;
+  height: 46px;
+  max-width: 145px;
   object-fit: contain;
+}
+
+.community-logos--msu .community-partner {
+  min-height: 46px;
 }

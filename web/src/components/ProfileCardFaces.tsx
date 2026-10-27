@@ -4,7 +4,7 @@ import { PROFILE_PHOTO_PATH } from '../lib/profilePhoto';
 import type { UsePortfolioResult } from '../types';
 import BrandIcon from './BrandIcon';
 import '../styles/community-partners.css';
-import SCHOOL_LOGO from '../assets/school_logo.webp';
+import SCHOOL_LOGO from '../assets/marinduque-state-university-seal.png';
 
 export function truncateValue(value: string): string {
   if (!value) return '—';
@@ -70,7 +70,7 @@ export function CardFrontFace({
 
       <div className="card-top">
         <div className="brand">
-          <h2>Mapúa Malayan Colleges Laguna</h2>
+          <h2>Marinduque State University</h2>
           <p>CRYPTITA PLAYS BUILDER WORKSHOP 2026</p>
         </div>
         <div className="builder-number">
@@ -85,7 +85,7 @@ export function CardFrontFace({
           </div>
         </div>
         <div className="school-logo-tab">
-          <img src={SCHOOL_LOGO} alt="Mapúa Malayan Colleges Laguna" />
+          <img src={SCHOOL_LOGO} alt="Marinduque State University seal" />
         </div>
       </div>
 
@@ -302,12 +302,12 @@ export function CardBackFace({
 
         <div className="back-community">
           <div className="community-title">Community Partners:</div>
-          <div className="community-logos community-logos--mmcl">
+          <div className="community-logos community-logos--msu">
             <div className="community-partner">
-              <img src="/assets/icon/cjc-race.svg" alt="CJC Race" />
+              <img src="/assets/partners/cjc-race.png" alt="CJC Race" />
             </div>
             <div className="community-partner">
-              <img src="/assets/icon/blockchain4youth.svg" alt="Blockchain4Youth" />
+              <img src="/assets/partners/blockchain4youth.png" alt="Blockchain4Youth" />
             </div>
             <a
               className="community-partner"
@@ -317,7 +317,7 @@ export function CardBackFace({
               aria-label="Grantix"
               tabIndex={backFaceTabIndex}
             >
-              <img src="/assets/icon/grantix-mmcl.svg" alt="Grantix" />
+              <img src="/assets/partners/grantix.png" alt="Grantix" />
             </a>
             <a
               className="community-partner"
@@ -327,13 +327,28 @@ export function CardBackFace({
               aria-label="Kamiyon Studio"
               tabIndex={backFaceTabIndex}
             >
-              <img src="/assets/icon/kamiyon-studio.svg" alt="Kamiyon Studio" />
+              <img src="/assets/partners/kamiyon-studio.svg" alt="Kamiyon Studio" />
             </a>
             <div className="community-partner">
-              <img src="/assets/icon/blockchain4her.svg" alt="Blockchain4Her" />
+              <img src="/assets/partners/blockchain4her.png" alt="Blockchain4Her" />
             </div>
             <div className="community-partner">
-              <img src="/assets/icon/lbank-academy.svg" alt="Lbank Academy" />
+              <img src="/assets/partners/bingx-academy.png" alt="BingX Academy" />
+            </div>
+            <div className="community-partner">
+              <img src="/assets/partners/conexus.png" alt="Conexus" />
+            </div>
+            <div className="community-partner">
+              <img src="/assets/partners/gnclub.png" alt="GNClub" />
+            </div>
+            <div className="community-partner">
+              <img src="/assets/partners/iskolar.png" alt="Iskolar" />
+            </div>
+            <div className="community-partner">
+              <img src="/assets/partners/nen-digital.png" alt="NEN Digital" />
+            </div>
+            <div className="community-partner">
+              <img src="/assets/partners/safehouse.png" alt="Safehouse" />
             </div>
           </div>
         </div>

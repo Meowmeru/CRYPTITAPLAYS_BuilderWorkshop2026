@@ -1,12 +1,12 @@
-# COMMUNITY-2-MMCL: frontend challenges
+# Marinduque State University: frontend challenges
 
 This university edition starts with two unfinished exercises. First remove the insects that keep returning to the card; then redesign the entire card layout in your own style. Suggested beginner timings are 10–15 minutes and 30–45 minutes respectively. These are guides, not deadlines.
 
-The site remains a read-only React/TypeScript frontend. These exercises require no wallet, gas, new Move deployment, or on-chain write. The [main workshop README](../../README.md) still describes the existing Mainnet CLI workflow if you also need to create your own BuilderCard. See [edition references](editions.md) for the preserved BFCBINAN source and facilitator branch.
+The site remains a read-only React/TypeScript frontend. These exercises require no wallet, gas, new Move deployment, or on-chain write. The [main workshop README](../../README.md) still describes the existing Mainnet CLI workflow if you also need to create your own BuilderCard. See [edition references](editions.md) for earlier workshops.
 
-## Start from the MMCL starter
+## Start from the Marinduque State University starter
 
-The repository's `main` branch contains the MMCL starter. Follow the README's fork instructions (copying only `main` is enough), then clone your fork. Replace the two placeholders below with your account and fork name. If you forked before this edition was published, sync your fork's `main` with upstream first.
+The repository's `main` branch contains the Marinduque State University starter. Follow the README's fork instructions (copying only `main` is enough), then clone your fork. Replace the two placeholders below with your account and fork name. If you forked before this edition was published, sync your fork's `main` with upstream first.
 
 ```bash
 git clone --branch main https://github.com/YOUR_GITHUB_USERNAME/YOUR_FORK_NAME.git
@@ -14,7 +14,7 @@ cd YOUR_FORK_NAME
 git branch --show-current
 ```
 
-Expected branch: `main`. The starter includes bugs and the original card design. Work on your fork's `main` so the README's push and hosting instructions apply directly. Do not start from the facilitator solution branch.
+Expected branch: `main`. The starter includes bugs and the original card design. Work on your fork's `main` so the README's push and hosting instructions apply directly.
 
 For local practice without a fork, clone the upstream repository directly:
 
@@ -90,7 +90,7 @@ Completion checks:
 
 ## Challenge 2: redesign the entire card
 
-**Your task:** make the card your own. You may change the front and back composition, photo placement, typography, colors, materials, borders, and decorative elements. You are not limited to a frame-color change. Sketch a layout first, then implement it in small steps. The facilitator design is one example, not the required answer.
+**Your task:** make the card your own. You may change the front and back composition, photo placement, typography, colors, materials, borders, and decorative elements. You are not limited to a frame-color change. Sketch a layout first, then implement it in small steps. There is no required visual style.
 
 | Area | Starting point |
 | --- | --- |
@@ -111,7 +111,7 @@ Your redesign must preserve:
 - Empty, loading, error, and successful data states. An error must remain visible and must not be replaced with invented profile data.
 - Front/back flip, keyboard-operable controls, copy feedback, and the distinction between a card click and a link/button click. Back-face links must retain their hidden-face focus handling.
 - A card that fits the existing single-viewport experience on narrow and desktop screens, with readable text and visible focus indicators.
-- The MMCL partner lineup in order: CJC Race, Blockchain4Youth, Grantix, Kamiyon Studio, Blockchain4Her, Lbank Academy. Preserve asset proportions and existing verified destinations.
+- The Marinduque State University partner lineup: CJC Race, Blockchain4Youth, Grantix, Kamiyon Studio, Blockchain4Her, BingX Academy, Conexus, GNClub, Iskolar, NEN Digital, Safehouse. Preserve asset proportions and the existing verified destinations.
 - Shared live/export content, both faces visible in the exported composition, and Camera disabled until the profile successfully loads.
 
 <details>
@@ -127,10 +127,11 @@ From `web/`, run:
 
 ```bash
 npm run lint
+npm run test
 npm run build
 ```
 
-Build includes TypeScript checking. There is no configured frontend `npm test` script. These commands check code; they do not prove the design or animation works.
+Build includes TypeScript checking. These commands check code; they do not prove the design or animation works.
 
 Manually check the following and record what you actually verified:
 

@@ -2,37 +2,54 @@
 
 # Cryptita Plays — Builder Workshop
 
-**COMMUNITY-2-MMCL student starter** — The `main` branch contains this edition with both challenges unfinished. Fork or clone `main`, then follow the [MMCL challenges](docs/workshops/community-2-mmcl.md).
+**Marinduque State University student starter** — The `main` branch contains this edition with both challenges unfinished. Fork or clone `main`, then follow the [MSU challenges](docs/workshops/marinduque-state-university.md).
 
-See [university editions](docs/workshops/editions.md) for the preserved `COMMUNITY-1-BFCBINAN` source and the separate facilitator solutions.
+See [university editions](docs/workshops/editions.md) for preserved earlier workshops and the MMCL archive.
 
 
-<!-- COMMUNITY-2-MMCL partners, in workshop order -->
+<!-- Marinduque State University community partners -->
 <table align="center">
   <tr>
     <td align="center" valign="middle">
-      <img src="web/public/assets/icon/cjc-race.svg" alt="CJC Race" height="56">
+      <img src="web/public/assets/partners/cjc-race.png" alt="CJC Race" height="56">
     </td>
     <td align="center" valign="middle">
-      <img src="web/public/assets/icon/blockchain4youth.svg" alt="Blockchain4Youth" height="32">
+      <img src="web/public/assets/partners/blockchain4youth.png" alt="Blockchain4Youth" height="44">
     </td>
     <td align="center" valign="middle">
       <a href="https://www.facebook.com/grantix.global">
-      <img src="web/public/assets/icon/grantix-mmcl.svg" alt="Grantix" height="32">
+        <img src="web/public/assets/partners/grantix.png" alt="Grantix" height="32">
+      </a>
+    </td>
+    <td align="center" valign="middle">
+      <a href="https://www.facebook.com/kamiyonstudio">
+        <img src="web/public/assets/partners/kamiyon-studio.svg" alt="Kamiyon Studio" height="48">
       </a>
     </td>
   </tr>
   <tr>
     <td align="center" valign="middle">
-      <a href="https://www.facebook.com/kamiyonstudio">
-      <img src="web/public/assets/icon/kamiyon-studio.svg" alt="Kamiyon Studio" height="48">
-      </a>
+      <img src="web/public/assets/partners/blockchain4her.png" alt="Blockchain4Her" height="32">
     </td>
     <td align="center" valign="middle">
-      <img src="web/public/assets/icon/blockchain4her.svg" alt="Blockchain4Her" height="32">
+      <img src="web/public/assets/partners/bingx-academy.png" alt="BingX Academy" height="38">
     </td>
     <td align="center" valign="middle">
-      <img src="web/public/assets/icon/lbank-academy.svg" alt="Lbank Academy" height="42">
+      <img src="web/public/assets/partners/conexus.png" alt="Conexus" height="42">
+    </td>
+    <td align="center" valign="middle">
+      <img src="web/public/assets/partners/gnclub.png" alt="GNClub" height="42">
+    </td>
+  </tr>
+  <tr>
+    <td align="center" valign="middle">
+      <img src="web/public/assets/partners/iskolar.png" alt="Iskolar" height="48">
+    </td>
+    <td align="center" valign="middle">
+      <img src="web/public/assets/partners/nen-digital.png" alt="NEN Digital" height="42">
+    </td>
+    <td align="center" valign="middle">
+      <img src="web/public/assets/partners/safehouse.png" alt="Safehouse" height="42">
     </td>
   </tr>
 </table>

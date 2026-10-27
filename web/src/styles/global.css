@@ -8,35 +8,35 @@
   background: rgba(255, 255, 255, 0.72);
   -webkit-backdrop-filter: blur(14px) saturate(1.2);
   backdrop-filter: blur(14px) saturate(1.2);
-  color: #1d1416;
+  color: #221619;
 }
 
 .app-root > header {
-  border-bottom: 1px solid rgba(200, 16, 46, 0.18);
-  box-shadow: 0 4px 18px rgba(142, 11, 32, 0.08);
+  border-bottom: 1px solid rgba(128, 0, 22, 0.18);
+  box-shadow: 0 4px 18px rgba(99, 0, 16, 0.08);
 }
 
 .app-root > footer {
-  border-top: 1px solid rgba(200, 16, 46, 0.18);
-  color: rgba(29, 20, 22, 0.78);
+  border-top: 1px solid rgba(128, 0, 22, 0.18);
+  color: rgba(34, 22, 25, 0.78);
 }
 
 .app-root > footer strong,
 .app-root > footer b {
-  color: #8e0b20;
+  color: #630010;
 }
 
 .app-root > header a,
 .app-root > header button {
-  color: #1d1416;
-  border-color: rgba(200, 16, 46, 0.3);
+  color: #221619;
+  border-color: rgba(128, 0, 22, 0.3);
   background: rgba(255, 255, 255, 0.7);
 }
 
 .app-root > header a:hover,
 .app-root > header button:hover {
-  color: #c8102e;
-  border-color: #c8102e;
+  color: #800016;
+  border-color: #800016;
 }
 
 *,
@@ -168,7 +168,7 @@ button {
   letter-spacing: 0.01em;
   text-align: center;
   text-wrap: pretty;
-  color: #1d1416;
+  color: #221619;
 }
 
 .site-footer__kicker {
@@ -178,7 +178,7 @@ button {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #8e0b20;
+  color: #630010;
 }
 
 .site-footer__kicker::after {
@@ -260,9 +260,9 @@ button {
   flex-direction: column;
   gap: 12px;
   padding: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(128, 0, 22, 0.18);
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.72);
 }
 
 .social-actions__share-title {
@@ -270,7 +270,7 @@ button {
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.02em;
-  color: rgba(255, 255, 255, 0.92);
+  color: #630010;
 }
 
 .social-actions__share-links {
@@ -287,11 +287,11 @@ button {
   width: 100%;
   height: 44px;
   padding: 0 16px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(128, 0, 22, 0.18);
   border-radius: 999px;
-  color: rgba(255, 255, 255, 0.9);
+  color: #221619;
   text-decoration: none;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.72);
   cursor: pointer;
   transition:
     border-color 160ms ease,
@@ -319,7 +319,7 @@ button {
 
 .social-actions__camera {
   cursor: pointer;
-  color: rgba(255, 255, 255, 0.9);
+  color: #221619;
   transition:
     border-color 160ms ease,
     background 160ms ease,

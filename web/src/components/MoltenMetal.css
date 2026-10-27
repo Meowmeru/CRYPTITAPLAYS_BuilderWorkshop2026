@@ -6,7 +6,7 @@
   isolation: isolate;
 }
 
-/* Photo: the shift layer follows the cursor (JS), the photo inside drifts (CSS). */
+/* Image: the shift layer follows the cursor (JS), the image inside drifts (CSS). */
 .inst-bg__shift {
   position: absolute;
   inset: -4%;
@@ -21,6 +21,12 @@
   transform-origin: 50% 60%;
 }
 
+.app-bg .inst-bg__photo {
+  background-size: min(60vw, 620px) auto;
+  background-repeat: no-repeat;
+  opacity: 0.2;
+}
+
 .inst-bg--drift .inst-bg__photo {
   animation: inst-bg-drift 36s ease-in-out infinite alternate;
 }
@@ -30,7 +36,7 @@
   to   { transform: scale(1.14) translate3d(1.2%, -0.8%, 0); }
 }
 
-/* School color wash: keeps any photo on-brand and text readable. */
+/* School color wash: keeps the background on-brand and text readable. */
 .inst-bg__tint {
   position: absolute;
   inset: 0;
@@ -45,7 +51,7 @@
   mix-blend-mode: multiply;
 }
 
-/* Animated light sheen (WebGL), blended into the photo rather than covering it. */
+/* Animated light sheen (WebGL), blended into the background. */
 .inst-bg__sheen {
   position: absolute;
   inset: 0;
@@ -104,8 +110,8 @@
 }
 
 /* =========================================================
-   LIGHT MODE (default): white / red wash so the page and the
-   white-red card read as one design
+   LIGHT MODE (default): school-color wash so the page and the
+   maroon-and-white card read as one design
    ========================================================= */
 
 .inst-bg--light .inst-bg__photo {

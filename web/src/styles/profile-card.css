@@ -1,7 +1,7 @@
 /* =========================================================
-   PROFILE CARD: white + red (Mapúa Malayan Colleges Laguna)
-   Front: white card with a red header band.
-   Back: solid red with a raised white-sweep logo.
+   PROFILE CARD: white + maroon (Marinduque State University)
+   Front: white card with a maroon header band.
+   Back: solid maroon with a raised white-sweep logo.
    Markup and class names are unchanged.
    ========================================================= */
 
@@ -16,15 +16,15 @@
   --border: rgba(255, 255, 255, 0.08);
 
   /* Card palette */
-  --mp-red: #c8102e;
-  --mp-red-rgb: 200, 16, 46;
-  --mp-red-deep: #8e0b20;
-  --mp-red-dark: #6f0817;
-  --mp-ink: #1d1416;
-  --mp-ink-soft: rgba(29, 20, 22, 0.66);
-  --mp-paper: #ffffff;
-  --mp-paper-tint: #fbf3f4;
-  --blue: var(--mp-red); /* legacy accent name now maps to school red */
+  --school-maroon: #800016;
+  --school-maroon-rgb: 128, 0, 22;
+  --school-maroon-deep: #630010;
+  --school-maroon-dark: #4a000c;
+  --school-ink: #221619;
+  --school-ink-soft: rgba(34, 22, 25, 0.66);
+  --school-paper: #ffffff;
+  --school-paper-tint: #fff9ea;
+  --blue: var(--school-maroon); /* legacy accent name */
 }
 
 /* =========================================================
@@ -51,8 +51,8 @@
   will-change: transform;
 
   box-shadow:
-    0 28px 60px rgba(142, 11, 32, 0.28),
-    0 8px 18px rgba(142, 11, 32, 0.18),
+    0 28px 60px rgba(99, 0, 16, 0.28),
+    0 8px 18px rgba(99, 0, 16, 0.18),
     0 0 0 1px rgba(255, 255, 255, 0.7);
 }
 
@@ -71,10 +71,10 @@
 
 .card-front {
   transform: rotateY(0deg);
-  color: var(--mp-ink);
+  color: var(--school-ink);
   background:
     radial-gradient(120% 90% at 85% 10%, #ffffff 0%, transparent 60%),
-    linear-gradient(160deg, #ffffff 0%, var(--mp-paper-tint) 100%);
+    linear-gradient(160deg, #ffffff 0%, var(--school-paper-tint) 100%);
 }
 
 .card-back {
@@ -82,7 +82,7 @@
   color: #fff;
   background:
     radial-gradient(90% 120% at 80% 20%, rgba(255, 255, 255, 0.14), transparent 55%),
-    linear-gradient(135deg, #d6152f 0%, var(--mp-red) 40%, var(--mp-red-deep) 100%);
+    linear-gradient(135deg, #9b1228 0%, var(--school-maroon) 40%, var(--school-maroon-deep) 100%);
 }
 
 .profile-card.is-flipped {
@@ -95,7 +95,7 @@
   cursor: default;
 }
 
-/* Red/white base stripe on the front */
+/* Maroon/gold base stripe on the front */
 .card-front::after {
   content: "";
   position: absolute;
@@ -104,7 +104,7 @@
   bottom: 0;
   height: 9px;
   z-index: 6;
-  background: linear-gradient(90deg, var(--mp-red-dark), var(--mp-red) 55%, var(--mp-red-deep));
+  background: linear-gradient(90deg, var(--school-maroon-dark), #d9a300 55%, var(--school-maroon-deep));
 }
 
 /* =========================================================
@@ -134,7 +134,7 @@
   pointer-events: none;
   background: radial-gradient(
     circle at var(--mx) var(--my),
-    rgba(var(--mp-red-rgb), 0.08),
+    rgba(var(--school-maroon-rgb), 0.08),
     transparent 22%
   );
 }
@@ -184,7 +184,7 @@
 
 .deboss-shadow {
   transform: translate(2.2px, 2.2px);
-  background: rgba(var(--mp-red-rgb), 0.3);
+  background: rgba(var(--school-maroon-rgb), 0.3);
   filter: blur(0.7px);
 }
 
@@ -195,7 +195,7 @@
 }
 
 .deboss-face {
-  background: linear-gradient(145deg, rgba(var(--mp-red-rgb), 0.13), rgba(var(--mp-red-rgb), 0.05));
+  background: linear-gradient(145deg, rgba(var(--school-maroon-rgb), 0.13), rgba(var(--school-maroon-rgb), 0.05));
 }
 
 /* =========================================================
@@ -216,7 +216,7 @@
   color: #fff;
   background:
     linear-gradient(100deg, rgba(255, 255, 255, 0.1), transparent 40%),
-    linear-gradient(110deg, var(--mp-red-deep) 0%, var(--mp-red) 70%);
+    linear-gradient(110deg, var(--school-maroon-deep) 0%, var(--school-maroon) 70%);
   box-shadow: 0 6px 16px rgba(110, 0, 20, 0.22);
 }
 
@@ -228,7 +228,7 @@
   right: 0;
   bottom: -4px;
   height: 3px;
-  background: linear-gradient(90deg, var(--mp-red), #fff 50%, var(--mp-red));
+  background: linear-gradient(90deg, var(--school-maroon), #fff 50%, var(--school-maroon));
   opacity: 0.9;
 }
 
@@ -256,7 +256,7 @@
 .field-label {
   display: block;
   margin-bottom: 6px;
-  color: var(--mp-red);
+  color: var(--school-maroon);
   font-size: 11px;
   font-weight: 700;
   line-height: 1;
@@ -266,7 +266,7 @@
 
 .field-value {
   display: block;
-  color: var(--mp-ink);
+  color: var(--school-ink);
   font-size: clamp(13px, 1.25vw, 17px);
   font-weight: 500;
   line-height: 1.3;
@@ -365,11 +365,11 @@
   aspect-ratio: 0.79 / 1;
   padding: 3px;
   border-radius: 18px;
-  background: linear-gradient(145deg, var(--mp-red), var(--mp-red-deep));
+  background: linear-gradient(145deg, var(--school-maroon), var(--school-maroon-deep));
   box-shadow:
     0 18px 38px rgba(110, 0, 20, 0.28),
     0 0 0 4px #fff,
-    0 0 0 5px rgba(var(--mp-red-rgb), 0.25);
+    0 0 0 5px rgba(var(--school-maroon-rgb), 0.25);
 }
 
 .profile-photo {
@@ -391,7 +391,7 @@
 .identity-header {
   margin-bottom: 20px;
   padding-bottom: 16px;
-  border-bottom: 1px solid rgba(var(--mp-red-rgb), 0.18);
+  border-bottom: 1px solid rgba(var(--school-maroon-rgb), 0.18);
 }
 
 .identity-header .field-label {
@@ -400,7 +400,7 @@
 
 .identity-header h1 {
   margin: 0;
-  color: var(--mp-ink);
+  color: var(--school-ink);
   font-size: clamp(27px, 3.5vw, 47px);
   font-weight: 800;
   line-height: 0.98;
@@ -437,10 +437,10 @@
 
 .skills span {
   padding: 6px 13px;
-  border: 1px solid rgba(var(--mp-red-rgb), 0.28);
+  border: 1px solid rgba(var(--school-maroon-rgb), 0.28);
   border-radius: 999px;
-  background: rgba(var(--mp-red-rgb), 0.07);
-  color: var(--mp-red-deep);
+  background: rgba(var(--school-maroon-rgb), 0.07);
+  color: var(--school-maroon-deep);
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -471,7 +471,7 @@
   border-right: none;
   border-radius: 15px 0 0 15px;
 
-  background: linear-gradient(135deg, #e0213d, var(--mp-red-deep));
+  background: linear-gradient(135deg, #9b1228, var(--school-maroon-deep));
   color: #fff;
 
   font-family: Georgia, serif;
@@ -511,10 +511,10 @@
   grid-template-columns: 0.8fr 1px 1fr 1px 1.35fr 1px 1.35fr 1px 88px;
   align-items: center;
 
-  border: 1px solid rgba(var(--mp-red-rgb), 0.2);
-  border-left: 4px solid var(--mp-red);
+  border: 1px solid rgba(var(--school-maroon-rgb), 0.2);
+  border-left: 4px solid var(--school-maroon);
   border-radius: 14px;
-  background: linear-gradient(145deg, #ffffff, var(--mp-paper-tint));
+  background: linear-gradient(145deg, #ffffff, var(--school-paper-tint));
   box-shadow:
     inset 0 1px 0 #fff,
     0 10px 24px rgba(110, 0, 20, 0.1);
@@ -527,7 +527,7 @@
 
 .credential-value {
   display: block;
-  color: var(--mp-ink);
+  color: var(--school-ink);
   font-size: clamp(12px, 1.25vw, 16px);
   font-weight: 500;
   letter-spacing: 0.02em;
@@ -536,7 +536,7 @@
 .divider {
   width: 1px;
   height: 55%;
-  background: linear-gradient(to bottom, transparent, rgba(var(--mp-red-rgb), 0.3), transparent);
+  background: linear-gradient(to bottom, transparent, rgba(var(--school-maroon-rgb), 0.3), transparent);
 }
 
 .value-row {
@@ -544,7 +544,7 @@
   align-items: center;
   gap: 5px;
   min-width: 0;
-  color: var(--mp-ink);
+  color: var(--school-ink);
   font-size: clamp(12px, 1.2vw, 16px);
   font-weight: 500;
 }
@@ -559,12 +559,12 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  color: var(--mp-ink);
+  color: var(--school-ink);
   text-decoration: none;
 }
 
 .value-row__link:hover {
-  color: var(--mp-red);
+  color: var(--school-maroon);
   text-decoration: underline;
 }
 
@@ -574,7 +574,7 @@
   padding: 2px;
   border: none;
   background: transparent;
-  color: var(--mp-ink-soft);
+  color: var(--school-ink-soft);
   font-size: 17px;
   cursor: pointer;
   transition:
@@ -583,7 +583,7 @@
 }
 
 .icon-btn:hover:not(:disabled) {
-  color: var(--mp-red);
+  color: var(--school-maroon);
   transform: translateY(-1px);
 }
 
@@ -601,7 +601,7 @@
   display: grid;
   place-items: center;
   text-decoration: none;
-  border: 1px solid rgba(var(--mp-red-rgb), 0.2);
+  border: 1px solid rgba(var(--school-maroon-rgb), 0.2);
   border-radius: 13px;
   background: #fff;
   box-shadow: 0 4px 10px rgba(110, 0, 20, 0.08);
@@ -613,7 +613,7 @@
 
 .sui-link-box:hover {
   transform: translateY(-2px);
-  border-color: rgba(var(--mp-red-rgb), 0.5);
+  border-color: rgba(var(--school-maroon-rgb), 0.5);
   box-shadow: 0 8px 16px rgba(110, 0, 20, 0.16);
 }
 
@@ -636,7 +636,7 @@
 }
 
 .card-status--error {
-  color: var(--mp-red-dark);
+  color: var(--school-maroon-dark);
   font-weight: 600;
 }
 
@@ -685,15 +685,15 @@
 .back-logo-face {
   background: linear-gradient(
     115deg,
-    #ef4a60 0%,
-    #f4687b 25%,
-    #ff9eab 42%,
-    #ffe6ea 49%,
+    #b27b00 0%,
+    #d9a300 25%,
+    #f2cf68 42%,
+    #fff5d4 49%,
     #ffffff 50%,
-    #ffe6ea 51%,
-    #ff9eab 58%,
-    #f4687b 75%,
-    #ef4a60 100%
+    #fff5d4 51%,
+    #f2cf68 58%,
+    #d9a300 75%,
+    #b27b00 100%
   );
   background-size: 300% 100%;
   background-position: 100% 50%;
@@ -776,7 +776,7 @@
 .back-divider {
   width: 88%;
   height: 1px;
-  margin: 38px auto;
+  margin: 26px auto;
   background: linear-gradient(
     to right,
     transparent,
@@ -818,7 +818,7 @@
 }
 
 .community-title {
-  margin-bottom: 19px;
+  margin-bottom: 11px;
   color: rgba(255, 255, 255, 0.88);
   font-size: clamp(14px, 1.4vw, 18px);
   font-style: italic;
@@ -851,7 +851,7 @@
   max-width: 105px;
   object-fit: contain;
 
-  /* Renders every partner logo as a clean white mark on the red card.
+  /* Renders every partner logo as a clean white mark on the maroon card.
      Remove this line if you prefer the logos in their original colors. */
   filter: brightness(0) invert(1);
 }
@@ -875,7 +875,7 @@
 .icon-btn:focus-visible,
 .sui-link-box:focus-visible,
 .value-row__link:focus-visible {
-  outline: 2px solid var(--mp-red);
+  outline: 2px solid var(--school-maroon);
   outline-offset: 2px;
 }
 

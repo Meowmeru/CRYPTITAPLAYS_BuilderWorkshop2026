@@ -5,13 +5,13 @@ import './MoltenMetal.css';
 type InstitutionBackgroundProps = {
   /** Campus photo / building / school photo (URL or imported asset) */
   image?: string;
-  /** Main school color (blue): used for the tint and the deep tones of the sheen */
+  /** Main school color: used for the tint and the deep tones of the sheen */
   primaryColor?: string;
-  /** Secondary school color (red): used for the mid tones and the base rule */
+  /** Secondary school color: used for the mid tones and the base rule */
   accentColor?: string;
-  /** Third school color (white): used for the brightest highlights of the sheen */
+  /** Third school color: used for the brightest highlights of the sheen */
   lightColor?: string;
-  /** 'light' washes the photo toward white/red so it sits well behind a light card; 'dark' is the original moody look */
+  /** 'light' washes the image toward the supplied colors so it sits behind a light card; 'dark' is the original moody look */
   mode?: 'light' | 'dark';
   /** 0-1: strength of the color wash over the photo (default depends on mode) */
   tint?: number;
@@ -35,7 +35,7 @@ const hexToRgb = (hex: string): [number, number, number] => {
   return [parseInt(m[1], 16) / 255, parseInt(m[2], 16) / 255, parseInt(m[3], 16) / 255];
 };
 
-// Light mode runs red -> blue -> white so the sheen never darkens the page.
+// Light mode runs accent -> primary -> light so the sheen never darkens the page.
 const sheenPalette = (
   mode: 'light' | 'dark',
   primary: string,
@@ -91,9 +91,9 @@ void main() {
 
 export default function InstitutionBackground({
   image,
-  primaryColor = '#0A2A7A',
-  accentColor = '#C8102E',
-  lightColor = '#FFFFFF',
+  primaryColor = '#800016',
+  accentColor = '#D9A300',
+  lightColor = '#FFF8E2',
   mode = 'light',
   tint,
   sheen,
