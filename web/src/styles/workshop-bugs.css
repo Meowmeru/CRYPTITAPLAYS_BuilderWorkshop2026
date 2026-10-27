@@ -1,46 +1,59 @@
-/* This overlay belongs only to the live workshop card, never the export faces. */
-.workshop-bugs-host {
-  position: relative;
-}
-
+/* These overlays belong only to the interactive card, not its export faces. */
 .workshop-bugs {
   position: absolute;
   inset: 0;
   pointer-events: none;
   transform: translateZ(12px);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.workshop-bugs--back {
+  transform: rotateY(180deg) translateZ(12px);
 }
 
 .workshop-bugs__flight {
-  --fly-x: -240px;
-  --fly-y: -220px;
-  --heading: -24deg;
-  --arrival-delay: 2.4s;
+  --heading: 0deg;
+  --arrival-delay: 0s;
   position: absolute;
-  left: 20%;
-  top: 79%;
   width: 56px;
   height: 56px;
-  pointer-events: auto;
   transition: translate 220ms ease-out;
   animation: workshop-bug-land 1.4s var(--arrival-delay) both;
 }
 
-.workshop-bugs__flight:nth-child(2) {
-  --fly-x: 260px;
-  --fly-y: -170px;
-  --heading: 35deg;
-  --arrival-delay: 2.9s;
-  left: 78%;
-  top: 61%;
+.workshop-bugs__flight.is-replacement {
+  animation: workshop-bug-arrive 3s cubic-bezier(.22, .7, .25, 1) both;
 }
 
-.workshop-bugs__flight:nth-child(3) {
-  --fly-x: -120px;
-  --fly-y: -260px;
-  --heading: -65deg;
-  --arrival-delay: 3.4s;
-  left: 37%;
-  top: 9%;
+.workshop-bugs__target {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.workshop-bugs__target:focus-visible {
+  outline: 2px solid #f4bf50;
+  border-radius: 50%;
+}
+
+.workshop-bugs.is-scattered .workshop-bugs__target {
+  animation: workshop-bug-flee 380ms ease-in both;
+}
+
+.workshop-bugs.is-scattered .workshop-bugs__target .workshop-bugs__wings {
+  animation: workshop-bug-wings 100ms linear infinite;
+}
+
+.workshop-bugs__flight.is-dead {
+  animation-play-state: paused;
+  pointer-events: none;
+  transition: none;
 }
 
 .workshop-bugs__insect {
@@ -48,6 +61,10 @@
   height: 100%;
   filter: drop-shadow(2px 5px 3px #0009);
   transform: rotate(var(--heading));
+}
+
+.workshop-bugs__flight.is-dead .workshop-bugs__insect {
+  transform: rotate(var(--heading)) scaleY(.4);
 }
 
 .workshop-bugs__body {
@@ -67,25 +84,32 @@
   animation: workshop-bug-wings 6s ease-in-out var(--arrival-delay) infinite;
 }
 
-.workshop-bugs.is-scattered .workshop-bugs__flight {
-  animation: workshop-bug-flee 380ms ease-in both;
+.workshop-bugs__flight.is-dead .workshop-bugs__body,
+.workshop-bugs__flight.is-dead .workshop-bugs__eyes,
+.workshop-bugs__flight.is-dead .workshop-bugs__wings {
+  animation: none;
 }
 
-.workshop-bugs.is-scattered .workshop-bugs__wings {
-  animation: workshop-bug-wings 100ms linear infinite;
+.workshop-bugs__flight.is-dead .workshop-bugs__wings {
+  opacity: .3;
 }
 
 @keyframes workshop-bug-land {
-  0% { opacity: 0; transform: translate(var(--fly-x), var(--fly-y)) scale(.65); }
+  0% { opacity: 0; transform: translate(-120px, -180px) scale(.65); }
   20% { opacity: 1; }
   65% { transform: translate(24px, -38px) scale(1.08); }
   82% { transform: translate(-9px, -12px); }
   100% { opacity: 1; transform: translate(0, 0) scale(1); }
 }
 
+@keyframes workshop-bug-arrive {
+  from { transform: translate(var(--arrival-x), -110px) scale(.72); }
+  to { transform: translate(0, 0) scale(1); }
+}
+
 @keyframes workshop-bug-flee {
   from { opacity: 1; transform: translate(0, 0); }
-  to { opacity: 0; transform: translate(var(--fly-x), var(--fly-y)) scale(.65); }
+  to { opacity: 0; transform: translate(var(--fly-x), -220px) scale(.65); }
 }
 
 @keyframes workshop-bug-wings {
@@ -107,10 +131,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .workshop-bugs__flight,
-  .workshop-bugs__flight:hover,
-  .workshop-bugs.is-scattered .workshop-bugs__flight,
   .workshop-bugs__wings,
-  .workshop-bugs.is-scattered .workshop-bugs__wings,
   .workshop-bugs__body,
   .workshop-bugs__eyes {
     animation: none;
@@ -120,7 +141,8 @@
     transition: none;
   }
 
-  .workshop-bugs.is-scattered {
+  .workshop-bugs.is-scattered .workshop-bugs__target {
+    animation: none;
     visibility: hidden;
   }
 }

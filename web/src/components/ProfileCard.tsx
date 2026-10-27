@@ -86,7 +86,7 @@ export default function ProfileCard({ portfolio, isOrbiting = false }: ProfileCa
 
   return (
     <div className="card-orbit" ref={orbitRef}>
-      <div className="card-scale__inner workshop-bugs-host">
+      <div className="card-scale__inner">
         <div
           className={`profile-card${isFlipped ? ' is-flipped' : ''}${motionLocked ? ' is-orbiting' : ''}`}
           onClick={handleCardClick}
@@ -109,6 +109,7 @@ export default function ProfileCard({ portfolio, isOrbiting = false }: ProfileCa
             backFaceTabIndex={backFaceTabIndex}
             backFaceAriaHidden={!isFlipped}
           />
+          <WorkshopBugs isFlipped={isFlipped} motionLocked={motionLocked} />
           {[false, true].map((back) => (
             <button
               key={String(back)}
@@ -134,7 +135,6 @@ export default function ProfileCard({ portfolio, isOrbiting = false }: ProfileCa
             </button>
           ))}
         </div>
-        <WorkshopBugs motionLocked={motionLocked} />
       </div>
     </div>
   );
